@@ -24,6 +24,10 @@ import {
   Underline,
   Highlighter,
   Eraser,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify,
   Filter,
   Gauge,
   CheckCircle,
@@ -205,6 +209,11 @@ const RichTextEditor = ({ value, onChange, placeholder }) => {
         <button onClick={() => execCmd('backColor', '#fed7aa')} className="p-2 hover:bg-orange-100 text-orange-600 rounded-lg transition-colors" title="Highlight Cam"><Highlighter size={16} /></button>
         <button onClick={() => execCmd('backColor', '#e9d5ff')} className="p-2 hover:bg-purple-100 text-purple-600 rounded-lg transition-colors" title="Highlight Tím"><Highlighter size={16} /></button>
         <button onClick={() => execCmd('backColor', 'transparent')} className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 transition-colors ml-1 border-l pl-3 border-slate-200" title="Xóa Highlight"><Eraser size={16} /></button>
+        <div className="w-px h-5 bg-slate-300 mx-1"></div>
+        <button onClick={() => execCmd('justifyLeft')} className="p-2 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Căn trái"><AlignLeft size={16} /></button>
+        <button onClick={() => execCmd('justifyCenter')} className="p-2 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Căn giữa"><AlignCenter size={16} /></button>
+        <button onClick={() => execCmd('justifyRight')} className="p-2 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Căn phải"><AlignRight size={16} /></button>
+        <button onClick={() => execCmd('justifyFull')} className="p-2 hover:bg-slate-100 rounded-lg text-slate-700 transition-colors" title="Căn đều"><AlignJustify size={16} /></button>
       </div>
       <div
         ref={editorRef}
