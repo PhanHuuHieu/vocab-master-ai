@@ -7,14 +7,21 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "tts:install": "python -m venv .venv && .venv\\Scripts\\python.exe -m pip install --upgrade pip && .venv\\Scripts\\python.exe -m pip install -r tts_server/requirements.txt",
+    "tts:server": ".venv\\Scripts\\python.exe -m uvicorn tts_server.main:app --host 127.0.0.1 --port 8001"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",
+    "@tauri-apps/api": "^2.10.1",
     "firebase": "^12.11.0",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.7",
     "lucide-react": "^1.7.0",
+    "pdfmake": "^0.2.20",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

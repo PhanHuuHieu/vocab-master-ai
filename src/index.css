@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -17,6 +19,18 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --color-primary-soft: #e0e7ff;
+  --color-accent: #6366f1;
+  --color-accent-soft: #e0e7ff;
+  --color-success: #10b981;
+  --color-success-soft: #d1fae5;
+  --color-reward: #f59e0b;
+  --color-reward-soft: #fef3c7;
+  --color-danger: #f43f5e;
+  --color-danger-soft: #ffe4e6;
+
   font: 18px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
@@ -32,32 +46,34 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+:root.dark {
+  --text: #9ca3af;
+  --text-h: #f3f4f6;
+  --bg: #16171d;
+  --border: #2e303a;
+  --code-bg: #1f2028;
+  --accent: #c084fc;
+  --accent-bg: rgba(192, 132, 252, 0.15);
+  --accent-border: rgba(192, 132, 252, 0.5);
+  --social-bg: rgba(47, 48, 58, 0.5);
+  --shadow:
+    rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+:root.dark #social .button-icon {
+  filter: invert(1) brightness(2);
 }
 
 body {
   margin: 0;
 }
 
+* {
+  transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease;
+}
+
 #root {
-  width: 1126px;
+  width: 99%;
   max-width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -114,4 +130,335 @@ code {
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);
+}
+
+.game-bubble-field {
+  position: relative;
+  overflow: hidden;
+}
+
+.game-bubble {
+  animation-name: bubbleArcadeUp;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  will-change: transform;
+}
+
+.game-bubble:disabled {
+  animation-play-state: paused;
+}
+
+.arcade-bubble {
+  position: absolute;
+  bottom: -120px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.1;
+  padding: 8px;
+}
+
+@keyframes bubbleArcadeUp {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.92);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.95;
+  }
+
+  35% {
+    transform: translate3d(0, -120px, 0) scale(1.01);
+  }
+
+  65% {
+    transform: translate3d(0, -235px, 0) scale(1.04);
+  }
+
+  100% {
+    transform: translate3d(0, -395px, 0) scale(1.06);
+    opacity: 0.15;
+  }
+}
+
+.toast-theme-primary {
+  border-color: var(--color-primary-soft);
+  background: color-mix(in srgb, var(--color-primary-soft) 85%, #ffffff 15%);
+  color: color-mix(in srgb, var(--color-primary) 72%, #0f172a 28%);
+}
+
+.toast-theme-primary-bar {
+  background-color: var(--color-primary);
+}
+
+.toast-theme-accent {
+  border-color: var(--color-accent-soft);
+  background: color-mix(in srgb, var(--color-accent-soft) 85%, #ffffff 15%);
+  color: color-mix(in srgb, var(--color-accent) 76%, #0f172a 24%);
+}
+
+.toast-theme-accent-bar {
+  background-color: var(--color-accent);
+}
+
+.toast-theme-success {
+  border-color: var(--color-success-soft);
+  background: color-mix(in srgb, var(--color-success-soft) 86%, #ffffff 14%);
+  color: color-mix(in srgb, var(--color-success) 76%, #052e16 24%);
+}
+
+.toast-theme-success-bar {
+  background-color: var(--color-success);
+}
+
+.toast-theme-reward {
+  border-color: var(--color-reward-soft);
+  background: color-mix(in srgb, var(--color-reward-soft) 88%, #ffffff 12%);
+  color: color-mix(in srgb, var(--color-reward) 74%, #422006 26%);
+}
+
+.toast-theme-reward-bar {
+  background-color: var(--color-reward);
+}
+
+.toast-theme-danger {
+  border-color: var(--color-danger-soft);
+  background: color-mix(in srgb, var(--color-danger-soft) 88%, #ffffff 12%);
+  color: color-mix(in srgb, var(--color-danger) 74%, #4c0519 26%);
+}
+
+.toast-theme-danger-bar {
+  background-color: var(--color-danger);
+}
+
+.theme-reward-soft-bg {
+  background-color: color-mix(in srgb, var(--color-reward-soft) 90%, #ffffff 10%);
+}
+
+.theme-reward-soft-border {
+  border-color: color-mix(in srgb, var(--color-reward-soft) 76%, var(--color-reward) 24%);
+}
+
+.theme-reward-text {
+  color: color-mix(in srgb, var(--color-reward) 76%, #1f2937 24%);
+}
+
+.theme-reward-strong-text {
+  color: color-mix(in srgb, var(--color-reward) 86%, #111827 14%);
+}
+
+.theme-danger-soft-bg {
+  background-color: color-mix(in srgb, var(--color-danger-soft) 90%, #ffffff 10%);
+}
+
+.theme-danger-soft-border {
+  border-color: color-mix(in srgb, var(--color-danger-soft) 76%, var(--color-danger) 24%);
+}
+
+.theme-danger-text {
+  color: color-mix(in srgb, var(--color-danger) 78%, #1f2937 22%);
+}
+
+.theme-danger-strong-text {
+  color: color-mix(in srgb, var(--color-danger) 86%, #111827 14%);
+}
+
+.theme-danger-solid-bg {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.theme-danger-solid-hover:hover {
+  background-color: color-mix(in srgb, var(--color-danger) 86%, #111827 14%);
+}
+
+.bg-indigo-600 {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-indigo-500 {
+  background-color: var(--color-primary) !important;
+}
+
+.hover\:bg-indigo-700:hover {
+  background-color: var(--color-primary-hover) !important;
+}
+
+.hover\:bg-indigo-600:hover {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-indigo-50 {
+  background-color: var(--color-primary-soft) !important;
+}
+
+.bg-indigo-100 {
+  background-color: color-mix(in srgb, var(--color-primary-soft) 70%, #ffffff 30%) !important;
+}
+
+.text-indigo-500,
+.text-indigo-600,
+.text-indigo-700,
+.text-indigo-800,
+.text-indigo-900 {
+  color: var(--color-primary) !important;
+}
+
+.border-indigo-100,
+.border-indigo-200,
+.border-indigo-300 {
+  border-color: var(--color-primary-soft) !important;
+}
+
+.hover\:border-indigo-200:hover,
+.hover\:border-indigo-300:hover,
+.focus\:border-indigo-300:focus,
+.focus\:border-indigo-400:focus,
+.focus\:border-indigo-500:focus {
+  border-color: var(--color-primary) !important;
+}
+
+.focus\:ring-indigo-300:focus,
+.focus\:ring-indigo-400:focus,
+.focus\:ring-indigo-500:focus {
+  --tw-ring-color: color-mix(in srgb, var(--color-primary-soft) 78%, var(--color-primary) 22%) !important;
+}
+
+.ring-indigo-200,
+.ring-indigo-300,
+.ring-indigo-400,
+.ring-indigo-500 {
+  --tw-ring-color: color-mix(in srgb, var(--color-primary-soft) 72%, var(--color-primary) 28%) !important;
+}
+
+.bg-emerald-600,
+.bg-green-600 {
+  background-color: var(--color-success) !important;
+}
+
+.hover\:bg-emerald-700:hover,
+.hover\:bg-green-700:hover {
+  background-color: color-mix(in srgb, var(--color-success) 86%, #111827 14%) !important;
+}
+
+.bg-emerald-50,
+.bg-green-50 {
+  background-color: var(--color-success-soft) !important;
+}
+
+.text-emerald-600,
+.text-emerald-700,
+.text-emerald-800,
+.text-green-600,
+.text-green-700,
+.text-green-800,
+.text-green-900 {
+  color: var(--color-success) !important;
+}
+
+.border-emerald-100,
+.border-emerald-200,
+.border-green-200 {
+  border-color: var(--color-success-soft) !important;
+}
+
+.bg-amber-50,
+.bg-yellow-50 {
+  background-color: var(--color-reward-soft) !important;
+}
+
+.hover\:bg-amber-100:hover,
+.hover\:bg-yellow-100:hover {
+  background-color: color-mix(in srgb, var(--color-reward-soft) 78%, var(--color-reward) 22%) !important;
+}
+
+.text-amber-700,
+.text-amber-800,
+.text-yellow-700,
+.text-yellow-800,
+.text-yellow-900,
+.text-orange-700,
+.text-orange-800,
+.text-orange-900 {
+  color: var(--color-reward) !important;
+}
+
+.border-amber-200,
+.border-yellow-200,
+.border-orange-200 {
+  border-color: var(--color-reward-soft) !important;
+}
+
+.bg-rose-50,
+.bg-red-50 {
+  background-color: var(--color-danger-soft) !important;
+}
+
+.bg-rose-600,
+.bg-red-600 {
+  background-color: var(--color-danger) !important;
+}
+
+.hover\:bg-rose-700:hover,
+.hover\:bg-red-700:hover,
+.hover\:bg-red-800:hover {
+  background-color: color-mix(in srgb, var(--color-danger) 86%, #111827 14%) !important;
+}
+
+.text-rose-700,
+.text-rose-800,
+.text-rose-900,
+.text-red-700,
+.text-red-800,
+.text-red-900 {
+  color: var(--color-danger) !important;
+}
+
+.border-rose-200,
+.border-red-200,
+.border-red-300 {
+  border-color: var(--color-danger-soft) !important;
+}
+
+.bg-sky-50,
+.bg-cyan-50,
+.bg-violet-50,
+.bg-fuchsia-50,
+.bg-teal-50 {
+  background-color: var(--color-accent-soft) !important;
+}
+
+.text-sky-700,
+.text-sky-800,
+.text-sky-900,
+.text-cyan-700,
+.text-cyan-800,
+.text-violet-700,
+.text-violet-800,
+.text-violet-900,
+.text-fuchsia-700,
+.text-fuchsia-800,
+.text-teal-700,
+.text-teal-800,
+.text-teal-900 {
+  color: var(--color-accent) !important;
+}
+
+.border-sky-200,
+.border-cyan-200,
+.border-violet-200,
+.border-fuchsia-200,
+.border-teal-200 {
+  border-color: var(--color-accent-soft) !important;
+}
+
+.bg-sky-500,
+.bg-violet-500,
+.bg-fuchsia-500,
+.bg-teal-500,
+.bg-cyan-500 {
+  background-color: var(--color-accent) !important;
 }
